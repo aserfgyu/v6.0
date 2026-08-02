@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: quant-monitor-v6
+    runtime: python
+    plan: standard
+    buildCommand: "pip install -r requirements_v6.txt"
+    startCommand: "gunicorn -k eventlet -w 1 app_v6:app"
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.0
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DATA_SOURCE
+        value: mock
+    healthCheckPath: /api/market/overview
